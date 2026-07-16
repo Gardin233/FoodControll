@@ -1,10 +1,10 @@
-package org.gardin.foodValue;
+package org.gardin.foodcontrol;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class FoodValue extends JavaPlugin {
+public final class FoodControl extends JavaPlugin {
 
-    private static FoodValue instance;
+    private static FoodControl instance;
 
     @Override
     public void onEnable() {
@@ -17,18 +17,18 @@ public final class FoodValue extends JavaPlugin {
                 .getPluginManager()
                 .registerEvents(new FoodListener(this), this);
         // 注册命令
-        getCommand("foodvalue")
+        getCommand("foodControl")
                 .setExecutor(new FoodCommand(this));
-        getLogger().info("FoodValue enabled!");
+        getLogger().info("foodControl enabled!");
 
     }
     @Override
     public void onDisable() {
-        getLogger().info("FoodValue disabled!");
+        getLogger().info("foodControl disabled!");
     }
 
 
-    public static FoodValue getInstance() {
+    public static FoodControl getInstance() {
         return instance;
     }
 }

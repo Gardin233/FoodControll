@@ -1,4 +1,4 @@
-package org.gardin.foodValue;
+package org.gardin.foodcontrol;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,10 +7,10 @@ import org.bukkit.command.CommandSender;
 public class FoodCommand implements CommandExecutor {
 
 
-    private final FoodValue plugin;
+    private final FoodControl plugin;
 
 
-    public FoodCommand(FoodValue plugin){
+    public FoodCommand(FoodControl plugin){
 
         this.plugin = plugin;
 
@@ -27,7 +27,7 @@ public class FoodCommand implements CommandExecutor {
 
         if(args.length == 0){
 
-            sender.sendMessage("§e/foodvalue reload");
+            sender.sendMessage("§e/foodcontrol reload");
 
             return true;
 
@@ -37,7 +37,7 @@ public class FoodCommand implements CommandExecutor {
         if(args[0].equalsIgnoreCase("reload")){
 
 
-            if(!sender.hasPermission("foodvalue.admin")){
+            if(!sender.hasPermission("foodcontrol.admin")){
 
                 sender.sendMessage("§c没有权限");
 

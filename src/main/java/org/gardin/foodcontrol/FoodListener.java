@@ -1,4 +1,4 @@
-package org.gardin.foodValue;
+package org.gardin.foodcontrol;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class FoodListener implements Listener {
-    private final FoodValue plugin;
-    public FoodListener(FoodValue plugin){
+    private final FoodControl plugin;
+    public FoodListener(FoodControl plugin){
         this.plugin = plugin;
     }
     @EventHandler

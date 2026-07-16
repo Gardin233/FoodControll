@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.gardin</groupId>
-    <artifactId>FoodValue</artifactId>
+    <artifactId>FoodControl</artifactId>
     <version>1.0</version>
 
     <properties>
