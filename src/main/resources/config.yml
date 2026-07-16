@@ -1,0 +1,135 @@
+debug: true
+#nutrition <20且必须为整数
+#saturation <10
+foods:
+  #稀有
+  minecraft:enchanted_golden_apple:
+    nutrition: 3
+    saturation: 1.5
+  minecraft:golden_apple:
+    nutrition: 1
+    saturation: 1
+  minecraft:golden_carrot:
+    nutrition: 1
+    saturation: 1
+  #好
+  minecraft:cooked_beef:
+    nutrition: 1
+    saturation: 4.0
+  minecraft:cooked_mutton:
+    nutrition: 1
+    saturation: 1
+  minecraft:cooked_porkchop:
+    nutrition: 1
+    saturation: 2
+  minecraft:cooked_salmon:
+    nutrition: 1
+    saturation: 1
+  #普通
+  minecraft:baked_potato:
+    nutrition: 0
+    saturation: 1
+  minecraft:beetroot_soup:
+    nutrition: 1
+    saturation: 1
+  minecraft:beetroot:
+    nutrition: 0
+    saturation: 1
+  minecraft:bread:
+    nutrition: 3
+    saturation: 1.5
+  minecraft:carrot:
+    nutrition: 2
+    saturation: 0.8
+  minecraft:cooked_chicken:
+    nutrition: 2
+    saturation: 1
+  minecraft:cooked_cod:
+    nutrition: 2
+    saturation: 1
+  minecraft:cooked_rabbit:
+    nutrition: 2
+    saturation: 2
+  minecraft:mushroom_stew:
+    nutrition: 2
+    saturation: 2
+  minecraft:rabbit_stew:
+    nutrition: 2
+    saturation: 2
+  minecraft:suspicious_stew:
+    nutrition: 2
+    saturation: 2
+  #低
+  minecraft:apple:
+    nutrition: 2
+    saturation: 1.0
+  minecraft:chorus_fruit:
+    nutrition: 2
+    saturation: 1.0
+  minecraft:melon_slice:
+    nutrition: 2
+    saturation: 1
+  minecraft:poisonous_potato:
+    nutrition: 2
+    saturation: 1
+  minecraft:potato:
+    nutrition: 10
+    saturation: 0.5
+  minecraft:pumpkin_pie:
+    nutrition: 1
+    saturation: 1
+  minecraft:beef:
+    nutrition: 1
+    saturation: 1
+  minecraft:chicken:
+    nutrition: 1
+    saturation: 1
+  minecraft:mutton:
+    nutrition: 1
+    saturation: 1
+  minecraft:porkchop:
+    nutrition: 1
+    saturation: 1
+  minecraft:rabbit:
+    nutrition: 1
+    saturation: 1
+  minecraft:sweet_berries:
+    nutrition: 1
+    saturation: 1
+  minecraft:glow_berries:
+    nutrition: 2
+    saturation: 0.8
+  #差
+  #没人在乎蛋糕，所以目前我不打算支持对蛋糕的修改
+  minecraft:cookie:
+    nutrition: 1
+    saturation: 1
+  minecraft:dried_kelp:
+    nutrition: 1
+    saturation: 1
+  minecraft:honey_bottle:
+    nutrition: 1
+    saturation: 1
+  minecraft:pufferfish:
+    nutrition: 1
+    saturation: 1
+  minecraft:cod:
+    nutrition: 1
+    saturation: 1
+  minecraft:salmon:
+    nutrition: 1
+    saturation: 1
+  minecraft:rotten_flesh:
+    nutrition: 1
+    saturation: 1
+  minecraft:tropical_fish:
+    nutrition: 1
+    saturation: 1
+  minecraft:spider_eye:
+    nutrition: 1
+    saturation: 1
+
+
+
+
+

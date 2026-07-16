@@ -1,0 +1,14 @@
+name: foodValue
+version: '1.0-SNAPSHOT'
+main: org.gardin.foodValue.FoodValue
+api-version: '1.21'
+
+commands:
+  foodvalue:
+    description: Reload FoodValue config
+    usage: /foodvalue reload
+    permission: foodvalue.admin
+
+permissions:
+  foodvalue.admin:
+    default: op
