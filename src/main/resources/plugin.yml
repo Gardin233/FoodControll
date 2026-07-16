@@ -1,5 +1,5 @@
-name: foodValue
-version: '1.0-SNAPSHOT'
+name: FoodControl
+version: '1.0-alpha'
 main: org.gardin.foodcontrol.FoodControl
 api-version: '1.21'
 

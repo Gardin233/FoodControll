@@ -50,7 +50,7 @@ public class FoodCommand implements CommandExecutor {
 
 
             sender.sendMessage(
-                    "§aFoodValue 配置已重载"
+                    "§aFoodControl 配置已重载"
             );
 
 

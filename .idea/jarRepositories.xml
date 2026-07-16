@@ -7,9 +7,19 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="xiaomomi's plugins-releases" />
+      <option name="name" value="XiaoMoMi's Plugin Repository" />
+      <option name="url" value="https://repo.momirealms.net/releases" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="papermc-repo" />
       <option name="name" value="papermc-repo" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="momirealms-repo" />
+      <option name="name" value="momirealms-repo" />
+      <option name="url" value="https://repo.momirealms.net/releases/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

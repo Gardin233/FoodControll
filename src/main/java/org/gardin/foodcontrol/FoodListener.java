@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.gardin.foodcontrol.utils.banCE;
 
 public class FoodListener implements Listener {
     private final FoodControl plugin;
@@ -14,7 +15,16 @@ public class FoodListener implements Listener {
     }
     @EventHandler
     public void onEat(PlayerItemConsumeEvent event){
+
         ItemStack item = event.getItem();
+        if(banCE.isCraftEngineItem(item)){
+            if(plugin.getConfig().getBoolean("debug")){
+                plugin.getLogger().info(
+                        "检测到 CraftEngine 物品，跳过 FoodControl"
+                );
+            }
+            return;
+        }
         Material material = item.getType();
         // 获取真实命名空间ID
         String itemId = material.getKey().toString();
@@ -23,7 +33,7 @@ public class FoodListener implements Listener {
                 plugin.getConfig()
                         .getBoolean("debug");
         if(debug){
-            plugin.getLogger().info("========== FoodValue Debug ==========");
+            plugin.getLogger().info("========== FoodControl Debug ==========");
             plugin.getLogger().info("Material: " + material.name());
             plugin.getLogger().info("Namespaced ID: " + itemId);
             plugin.getLogger().info("Config Path: " + path);

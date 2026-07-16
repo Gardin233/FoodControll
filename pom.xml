@@ -22,7 +22,15 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
-
+        <repository>
+            <id>momirealms-repo</id>
+            <url>https://repo.momirealms.net/releases/</url>
+        </repository>
+        <repository>
+            <id>xiaomomi's plugins-releases</id>
+            <name>XiaoMoMi&#39;s Plugin Repository</name>
+            <url>https://repo.momirealms.net/releases</url>
+        </repository>
     </repositories>
 
 
@@ -34,7 +42,18 @@
             <version>1.21.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>net.momirealms</groupId>
+            <artifactId>craft-engine-core</artifactId>
+            <version>26.7</version> <!-- replace "{version}" with the plugin stable version -->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.momirealms</groupId>
+            <artifactId>craft-engine-bukkit</artifactId>
+            <version>26.7</version> <!-- for instance 0.0.60 -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 
