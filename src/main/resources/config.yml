@@ -1,6 +1,27 @@
 debug: true
 #nutrition <20且必须为整数
 #saturation <10
+#foods: 普通可食用物品配置
+#CraftEngine 食物请使用格式:
+#  "CE:namespace:item_id":
+#    nutrition: 4
+#    saturation: 2.0
+#    effects: []
+#    commands: []
+#cakes: 蛋糕配置
+#effects:
+#  - type: regeneration
+#    duration: 100
+#    amplifier: 0
+#    ambient: false
+#    particles: true
+#    icon: true
+#commands:
+#  - "[console] say {player} 吃下了 {food_id}"
+#  - "[player] msg {player} 你刚刚吃了 {food_id}"
+#命令支持内置占位符:
+#  {player} {player_name} {player_uuid} {food_id}
+#如果安装了 PlaceholderAPI，也支持它的占位符
 foods:
   #稀有
   minecraft:enchanted_golden_apple:
@@ -100,7 +121,6 @@ foods:
     nutrition: 2
     saturation: 0.8
   #差
-  #没人在乎蛋糕，所以目前我不打算支持对蛋糕的修改
   minecraft:cookie:
     nutrition: 1
     saturation: 1
@@ -128,6 +148,20 @@ foods:
   minecraft:spider_eye:
     nutrition: 1
     saturation: 1
+    effects:
+      - type: poison
+        duration: 80
+        amplifier: 0
+        ambient: false
+        particles: true
+        icon: true
+
+cakes:
+  minecraft:cake:
+    nutrition: 2
+    saturation: 0.4
+    effects: []
+    commands: []
 
 
 

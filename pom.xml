@@ -13,6 +13,7 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <craftengine.version>26.8</craftengine.version>
     </properties>
 
 
@@ -45,13 +46,13 @@
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-core</artifactId>
-            <version>26.7</version> <!-- replace "{version}" with the plugin stable version -->
+            <version>${craftengine.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.momirealms</groupId>
             <artifactId>craft-engine-bukkit</artifactId>
-            <version>26.7</version> <!-- for instance 0.0.60 -->
+            <version>${craftengine.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

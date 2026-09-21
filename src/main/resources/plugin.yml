@@ -2,12 +2,13 @@ name: FoodControl
 version: '1.0-alpha'
 main: org.gardin.foodcontrol.FoodControl
 api-version: '1.21'
+softdepend: [PlaceholderAPI, CraftEngine]
 
 commands:
   foodcontrol:
     description: Reload FoodControl config
     usage: /foodControl reload
-    permission: FoodControl.admin
+    permission: foodcontrol.admin
 
 permissions:
   foodcontrol.admin:

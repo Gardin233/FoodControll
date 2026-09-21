@@ -1,78 +1,128 @@
 package org.gardin.foodcontrol;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Cake;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.gardin.foodcontrol.utils.banCE;
 
 public class FoodListener implements Listener {
+
     private final FoodControl plugin;
-    public FoodListener(FoodControl plugin){
+    private final FoodService foodService;
+
+    public FoodListener(FoodControl plugin) {
         this.plugin = plugin;
+        this.foodService = new FoodService(plugin);
     }
-    @EventHandler
-    public void onEat(PlayerItemConsumeEvent event){
 
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onEat(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem();
-        if(banCE.isCraftEngineItem(item)){
-            if(plugin.getConfig().getBoolean("debug")){
-                plugin.getLogger().info(
-                        "检测到 CraftEngine 物品，跳过 FoodControl"
-                );
-            }
+        String itemId = resolveFoodItemId(item);
+        if (itemId == null) {
             return;
         }
-        Material material = item.getType();
-        // 获取真实命名空间ID
-        String itemId = material.getKey().toString();
-        String path = "foods." + itemId;
-        boolean debug =
-                plugin.getConfig()
-                        .getBoolean("debug");
-        if(debug){
-            plugin.getLogger().info("========== FoodControl Debug ==========");
-            plugin.getLogger().info("Material: " + material.name());
-            plugin.getLogger().info("Namespaced ID: " + itemId);
-            plugin.getLogger().info("Config Path: " + path);
-        }
-        if(!plugin.getConfig().contains(path)){
-            if(debug){plugin.getLogger().info("未找到食物配置");}
+        FoodDefinition definition = foodService.getFoodDefinition(itemId);
+
+        foodService.debug("========== FoodControl Debug ==========");
+        foodService.debug("Material: " + item.getType().name());
+        foodService.debug("Namespaced ID: " + itemId);
+
+        if (definition == null) {
+            foodService.debug("未找到食物配置");
             return;
         }
 
-
-        int nutrition = plugin.getConfig().getInt(path + ".nutrition");
-        float saturation = (float) plugin.getConfig().getDouble(path + ".saturation");
-        if(debug){
-            plugin.getLogger().info("Loaded nutrition=" + nutrition
-                            + " saturation="+ saturation
-            );
-        }
         Player player = event.getPlayer();
         int oldFood = player.getFoodLevel();
         float oldSaturation = player.getSaturation();
-        plugin.getServer().getScheduler()
-                .runTask(plugin, () -> {
-                    // 移除原版食物效果
-                    player.setFoodLevel(oldFood);
-                    player.setSaturation(oldSaturation);
-                    // 添加自定义效果
-                    player.setFoodLevel(
-                            Math.min(
-                                    20,
-                                    oldFood + nutrition
-                            )
-                    );
-                    player.setSaturation(
-                            Math.min(
-                                    20,
-                                    oldSaturation + saturation
-                            )
-                    );
-                });
+        foodService.debug("Loaded nutrition=" + definition.nutrition()
+                + " saturation=" + definition.saturation());
 
+        plugin.getServer().getScheduler().runTask(plugin, () ->
+                foodService.applyFood(player, itemId, oldFood, oldSaturation, definition));
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onCakeEat(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getHand() != EquipmentSlot.HAND) {
+            return;
+        }
+
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock == null || clickedBlock.getType() != Material.CAKE) {
+            return;
+        }
+
+        BlockData blockData = clickedBlock.getBlockData();
+        if (!(blockData instanceof Cake cakeData)) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        if (player.getFoodLevel() >= 20) {
+            return;
+        }
+
+        String itemId = Material.CAKE.getKey().toString();
+        FoodDefinition definition = foodService.getCakeDefinition(itemId);
+        if (definition == null) {
+            foodService.debug("未找到蛋糕配置: cakes." + itemId);
+            return;
+        }
+
+        int oldFood = player.getFoodLevel();
+        float oldSaturation = player.getSaturation();
+        int previousBites = cakeData.getBites();
+        Block cakeBlock = clickedBlock;
+
+        foodService.debug("检测到蛋糕进食，准备应用配置: " + itemId);
+
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            Block currentBlock = cakeBlock.getLocation().getBlock();
+            if (!didPlayerEatCake(currentBlock, previousBites)) {
+                return;
+            }
+
+            foodService.applyFood(player, itemId, oldFood, oldSaturation, definition);
+        });
+    }
+
+    private boolean didPlayerEatCake(Block currentBlock, int previousBites) {
+        if (currentBlock.getType() == Material.AIR) {
+            return true;
+        }
+
+        if (!(currentBlock.getBlockData() instanceof Cake updatedCake)) {
+            return false;
+        }
+
+        return updatedCake.getBites() > previousBites;
+    }
+
+    private String resolveFoodItemId(ItemStack item) {
+        String ceConfigId = banCE.getCraftEngineConfigId(item);
+        if (ceConfigId != null) {
+            foodService.debug("检测到 CraftEngine 物品，准备检查 CE 食物配置: " + ceConfigId);
+            if (foodService.getFoodDefinition(ceConfigId) != null) {
+                return ceConfigId;
+            }
+
+            foodService.debug("未找到 CE 食物配置，跳过 FoodControl: foods." + ceConfigId);
+            return null;
+        }
+
+        Material material = item.getType();
+        return material.getKey().toString();
     }
 }
